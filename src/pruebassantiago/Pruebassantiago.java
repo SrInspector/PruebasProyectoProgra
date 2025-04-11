@@ -10,6 +10,9 @@ public class Pruebassantiago {
 
     static boolean celula = false;
     static Scanner INPUT = new Scanner(System.in);
+    static int generacion = 0;
+    static boolean[][] sociedadMatriz = new boolean [15][15];
+    
 
    public static void main(String[] args) {
         mostrarMenu();
@@ -52,13 +55,8 @@ public class Pruebassantiago {
    }
 
     
-    public static void Matriz(){
-        
-        boolean sociedadMatriz[][] = new boolean[15][15];
-        iniciarMatriz(sociedadMatriz);
-    }
     
-    public static void iniciarMatriz(boolean sociedadMatriz[][]){
+    public static void iniciarMatriz(){
         int piso = 1;
         int techo = 15;
         int cantidadCelulas = 0;
@@ -71,15 +69,58 @@ public class Pruebassantiago {
         }
     }
     
-    public static void imprimirMatriz(boolean sociedadMatriz[][]){
+    public static void imprimirMatriz(){
+        
         for(int i = 0; i < sociedadMatriz.length; i++) {
             for(int j = 0; j < sociedadMatriz[i].length; j++)
                 if (sociedadMatriz[i][j] == false)
-                    System.out.print("|_|\t");
+                    System.out.print("[ ]\t");
 
             System.out.println();
 }
 }
+    
+    public static void siguienteGeneracion(){
+        boolean[][] generacionNueva = new boolean [15][15];
+        
+        for (int i = 0; i < 15; i++ ){
+            for (int j = 0; j < 15; j++){
+                int celulasVivas = revisarCelulasAlrededor(i, j);
+                
+                if (sociedadMatriz[i][j]) {
+                    generacionNueva[i][j] = (celulasVivas == 2 || celulasVivas == 3);
+                    
+                }else{
+                    generacionNueva[i][j] = (celulasVivas == 3);
+                }
+                
+            }
+        }
+    
+    
+    
+    }
+    
+    public static int revisarCelulasAlrededor (int fila, int columna){
+        int count= 0;
+        
+        if (fila > 0) {
+            if (columna > 0 && sociedadMatriz[fila - 1][columna - 1]) count ++;
+            if (sociedadMatriz[fila - 1][columna]) count++;
+            if (columna < 14 && sociedadMatriz[fila - 1][columna + 1]) count++;
+        }
+        
+        if (columna > 0 && sociedadMatriz[fila][columna - 1]) count++;
+        if (columna < 14 && sociedadMatriz[fila][columna + 1]) count++;
+        
+        if (fila < 14) {
+            if (columna > 0 && sociedadMatriz[fila + 1][columna - 1]) count ++;
+            if (sociedadMatriz[fila + 1][columna]) count++;
+            if (columna < 14 && sociedadMatriz[fila + 1][columna + 1]) count++;
+        }
+        return count;
+    }
+    
     public static void mostrarReglas() {
         System.out.println("\n los lineamientos del automata son: ");
         System.out.println("1-una célula viva con menos de 2 vecinos vivos muere por soledad ");
