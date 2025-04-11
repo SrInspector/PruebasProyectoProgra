@@ -10,9 +10,9 @@ public class Pruebassantiago {
 
     static boolean celula = false;
     static Scanner INPUT = new Scanner(System.in);
-    static int generacion = 0;
     static boolean[][] sociedadMatriz = new boolean [15][15];
     
+    //man te borre el metodo que se llamaba matriz creo y puse el bulean en estatico para mas facil creo yo, la verdad no se para que es el static llamado celula entonces no lo toque
 
    public static void main(String[] args) {
         mostrarMenu();
@@ -55,7 +55,7 @@ public class Pruebassantiago {
    }
 
     
-    
+    //mas adelante agregue filas y columnnas, la verdad no se si a eso te referiass con pisos y techo XD
     public static void iniciarMatriz(){
         int piso = 1;
         int techo = 15;
@@ -80,6 +80,7 @@ public class Pruebassantiago {
 }
 }
     
+    // Mae esto es para iniciar una nueva generacion con todo lo que ya see sabe de las reglas
     public static void siguienteGeneracion(){
         boolean[][] generacionNueva = new boolean [15][15];
         
@@ -101,9 +102,11 @@ public class Pruebassantiago {
     
     }
     
+    //este es un metodo que basicamente va a hacer que se revisen las casillas de la par, por decirlo asi el como funciona
     public static int revisarCelulasAlrededor (int fila, int columna){
         int count= 0;
         
+        //el primer if son para las de arribam, el segundo para los lados y el ultimo para las de abajo
         if (fila > 0) {
             if (columna > 0 && sociedadMatriz[fila - 1][columna - 1]) count ++;
             if (sociedadMatriz[fila - 1][columna]) count++;
@@ -121,6 +124,7 @@ public class Pruebassantiago {
         return count;
     }
     
+    //lo mas facil de entender, solo copie las reglas del documento del proyecto
     public static void mostrarReglas() {
         System.out.println("\n los lineamientos del automata son: ");
         System.out.println("1-una célula viva con menos de 2 vecinos vivos muere por soledad ");
